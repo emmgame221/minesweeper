@@ -95,14 +95,11 @@ impl TextGame {
 
     fn check(&mut self, x: usize, y: usize) {
         let result = self.board.reveal_at(x, y);
-        match result {
-            Ok(tile) => {
-                if tile == Tile::Mine {
-                    self.board.reveal_all();
-                    self.game_over(true);
-                }
+        if let Ok(tile) = result {
+            if tile == Tile::Mine {
+                self.board.reveal_all();
+                self.game_over(true);
             }
-            Err(message) => panic!(message),
         }
     }
 
